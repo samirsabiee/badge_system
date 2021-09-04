@@ -2,9 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreTopicRequest;
+use App\Models\Topic;
+use Illuminate\Http\RedirectResponse;
 
 class TopicController extends Controller
 {
-    //
+
+    /**
+     * TopicController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function new()
+    {
+        return view('topics.new');
+    }
+
+    public function store(StoreTopicRequest $request): RedirectResponse
+    {
+        auth()->user()->topics()->create($request->validated());
+        return back();
+    }
+
+    public function index()
+    {
+        $topics = Topic::all();
+        return view('topics.index', compact('topics'));
+    }
+
+    public function show(Topic $topic)
+    {
+        return view('topics.show', compact('topic'));
+    }
 }
