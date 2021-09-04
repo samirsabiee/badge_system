@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
-
+Route::view('/', 'welcome');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('topics', [TopicController::class, 'index'])->name('topics');
+Route::get('topic/new', [TopicController::class, 'new'])->name('topic.new');
+Route::post('topic', [TopicController::class, 'store'])->name('topic.store');
+Route::get('topic/{topic}', [TopicController::class, 'show'])->name('topic.show');
