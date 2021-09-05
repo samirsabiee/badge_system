@@ -24,8 +24,8 @@ class TopicController extends Controller
 
     public function store(StoreTopicRequest $request): RedirectResponse
     {
-        auth()->user()->topics()->create($request->validated());
-        return back();
+        $topic = auth()->user()->topics()->create($request->validated());
+        return redirect()->route('topic.show', $topic);
     }
 
     public function index()
