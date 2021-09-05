@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -46,5 +47,28 @@ class User extends Authenticatable
     public function topics(): HasMany
     {
         return $this->hasMany(Topic::class);
+    }
+
+    public function userStat(): HasOne
+    {
+        return $this->hasOne(UserStat::class);
+    }
+
+    public function incrementXp(int $number)
+    {
+        $this->userStat->xp += $number;
+        $this->userStat->save();
+    }
+
+    public function incrementTopicCount()
+    {
+        $this->userStat->topic_count++;
+        $this->userStat->save();
+    }
+
+    public function incrementReplyCount()
+    {
+        $this->userStat->reply_count++;
+        $this->userStat->save();
     }
 }
