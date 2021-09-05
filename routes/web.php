@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BadgeController;
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +23,6 @@ Route::get('topics', [TopicController::class, 'index'])->name('topics');
 Route::get('topic/new', [TopicController::class, 'new'])->name('topic.new');
 Route::post('topic', [TopicController::class, 'store'])->name('topic.store');
 Route::get('topic/{topic}', [TopicController::class, 'show'])->name('topic.show');
+Route::post('topic/{topic}/reply', [ReplyController::class, 'store'])->name('reply.store');
+Route::get('badge/new', [BadgeController::class, 'new'])->name('badge.new');
+Route::post('badge', [BadgeController::class, 'store'])->name('badge.store');
