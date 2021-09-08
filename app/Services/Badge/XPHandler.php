@@ -15,11 +15,8 @@ class XPHandler extends AbstractHandler
         return parent::handle($userStat);
     }
 
-    private function applyBadge(UserStat $userStat)
+    function getAvailableBadge(UserStat $userStat)
     {
-        $availableBadges = Badge::xp()->where('required_number', '<=', $userStat->xp)->get();
-        $userBadges = $userStat->user->badges;
-        $notReceiveBadges = $availableBadges->diff($userBadges);
-        $userStat->user->badges()->attach($notReceiveBadges);
+        return Badge::xp()->where('required_number', '<=', $userStat->xp)->get();
     }
 }
