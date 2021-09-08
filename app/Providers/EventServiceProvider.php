@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Models\Reply;
 use App\Models\Topic;
 use App\Models\User;
+use App\Models\UserStat;
 use App\Observers\ReplyObserver;
 use App\Observers\TopicObserver;
 use App\Observers\UserObserver;
+use App\Observers\UserStatObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -36,5 +38,6 @@ class EventServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Topic::observe(TopicObserver::class);
         Reply::observe(ReplyObserver::class);
+        UserStat::observe(UserStatObserver::class);
     }
 }
